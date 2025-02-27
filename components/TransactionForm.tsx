@@ -47,14 +47,10 @@ export function TransactionForm({
   let dataProducts: any = [];
   cartItems.map((item) => {
     const id = item.id;
-    const product = products?.find((i) => i.id === id);
-
-if (!product) {
-  console.warn(`Produk dengan ID ${id} tidak ditemukan.`);
-} else if (product.additional_forms !== null) {
-  dataProducts.push(product);
-}
-
+    const product = products.find((i) => i.id === id);
+    if (product && product.additional_forms !== null) {
+      dataProducts.push(product);
+    }
   });
 
   const {
@@ -129,14 +125,8 @@ if (!product) {
 
     const response = await req.json();
 
-    if (!response || !response.data) {
-      console.error("Error: Response dari API tidak valid", response);
-      alert("Terjadi kesalahan saat memproses pesanan. Silakan coba lagi.");
-      return;
-    }
-    
     const OrderItemsData = cartItems.map((item) => ({
-      uuid_transactions: response.data.id, // Aman, karena sudah dicek di atas
+      uuid_transactions: response.data.id || "",
       uuid_product: item.id,
       product_quantity: item.quantity,
       label: item.label,
@@ -186,9 +176,7 @@ if (!product) {
       deleteImage(productForm.proof_of_transaction_url);
 
       if (!checkImageSize(file)) {
-        if (e.target) {
-          e.target.value = "";
-        }
+        e.target.value = "";
       } else {
         const response = await fetch("/api/upload", {
           method: "POST",
