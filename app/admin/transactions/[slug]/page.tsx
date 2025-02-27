@@ -1,14 +1,14 @@
 "use client";
 
 import { TransactionsItem } from "@/components/CartItem";
-import { formatCurrency } from "@/utils/formatCurrency";
-import Image from "next/image";
-import { useCallback, useEffect, useReducer } from "react";
-import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { formatCurrency } from "@/utils/formatCurrency";
 import supabase from "@/utils/supabase";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useReducer } from "react";
 
 interface ParamProps {
   slug: string;
@@ -185,9 +185,19 @@ export default function CustomersDetailPage({
         </div>
         <Separator />
         <div className="flex justify-end">
-          <Button onClick={() => updateTransactions(response.data.id)}>
-            Set as completed
-          </Button>
+        <Button
+  onClick={() => {
+    if (!response || !response.data || !response.data.id) {
+      console.error("Error: response.data.id tidak ditemukan", response);
+      alert("Gagal memperbarui transaksi. Coba lagi nanti.");
+      return;
+    }
+    updateTransactions(response.data.id);
+  }}
+>
+  Set as completed
+</Button>
+
         </div>
       </section>
     </>

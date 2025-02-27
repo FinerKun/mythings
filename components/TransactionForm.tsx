@@ -1,10 +1,11 @@
 "use client";
 
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import { useShoppingCart } from "@/context/ShoppingCartContext";
+import { useFetchProducts } from "@/utils/api";
+import supabase from "@/utils/supabase";
+import { CheckIcon, RefreshCcw } from "lucide-react";
+import Image from "next/image";
 import {
   ChangeEvent,
   Dispatch,
@@ -12,12 +13,11 @@ import {
   useReducer,
   useState,
 } from "react";
-import { Label } from "./ui/label";
-import Image from "next/image";
-import { CheckIcon, RefreshCcw } from "lucide-react";
-import { useFetchProducts } from "@/utils/api";
-import supabase from "@/utils/supabase";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 
 type Inputs = {
   name: string;
@@ -47,10 +47,14 @@ export function TransactionForm({
   let dataProducts: any = [];
   cartItems.map((item) => {
     const id = item.id;
-    const product = products.find((i) => i.id === id);
-    if (product && product.additional_forms !== null) {
-      dataProducts.push(product);
-    }
+    const product = products?.find((i) => i.id === id);
+
+if (!product) {
+  console.warn(`Produk dengan ID ${id} tidak ditemukan.`);
+} else if (product.additional_forms !== null) {
+  dataProducts.push(product);
+}
+
   });
 
   const {
@@ -125,8 +129,14 @@ export function TransactionForm({
 
     const response = await req.json();
 
+    if (!response || !response.data) {
+      console.error("Error: Response dari API tidak valid", response);
+      alert("Terjadi kesalahan saat memproses pesanan. Silakan coba lagi.");
+      return;
+    }
+    
     const OrderItemsData = cartItems.map((item) => ({
-      uuid_transactions: response.data.id || "",
+      uuid_transactions: response.data.id, // Aman, karena sudah dicek di atas
       uuid_product: item.id,
       product_quantity: item.quantity,
       label: item.label,
@@ -176,7 +186,9 @@ export function TransactionForm({
       deleteImage(productForm.proof_of_transaction_url);
 
       if (!checkImageSize(file)) {
-        e.target.value = "";
+        if (e.target) {
+          e.target.value = "";
+        }
       } else {
         const response = await fetch("/api/upload", {
           method: "POST",
