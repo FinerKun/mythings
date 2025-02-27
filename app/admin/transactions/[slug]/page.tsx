@@ -185,9 +185,19 @@ export default function CustomersDetailPage({
         </div>
         <Separator />
         <div className="flex justify-end">
-          <Button onClick={() => updateTransactions(response.data.id)}>
-            Set as completed
-          </Button>
+        <Button
+  onClick={() => {
+    if (!response || !response.data || !response.data.id) {
+      console.error("Error: response.data.id tidak ditemukan", response);
+      alert("Gagal memperbarui transaksi. Coba lagi nanti.");
+      return;
+    }
+    updateTransactions(response.data.id);
+  }}
+>
+  Set as completed
+</Button>
+
         </div>
       </section>
     </>
