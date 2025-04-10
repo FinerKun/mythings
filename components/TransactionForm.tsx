@@ -309,7 +309,7 @@ if (!product) {
         <Label htmlFor="proof_of_transaction_url">
           Bukti Pembayaran ( .jpg, .png )
           <div className="mt-2 text-base text-slate-500">
-            BNI : 1871199798 a/n Gigih Nur Ifani Yusro
+          Jago: 105852900512 A/n Stefanus Derren Kurniawan
           </div>
           <div className="_QRIS mt-5 grid w-full max-w-sm items-center gap-1.5">
             <Label htmlFor="qris">
@@ -326,7 +326,7 @@ if (!product) {
               className="h-auto rounded-md border object-contain"
             />
           </div>
-        
+
         </Label>
         {productForm.proof_of_transaction_url && (
           <div>
