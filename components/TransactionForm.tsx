@@ -313,7 +313,7 @@ if (!product) {
           </div>
           <div className="_QRIS mt-5 grid w-full max-w-sm items-center gap-1.5">
             <Label htmlFor="qris">
-              Scan QRIS untuk Pembayaran (Percetakan Beringin)
+              Scan QRIS untuk Pembayaran (Lumintu store)
               <div className="mt-2 text-base text-slate-500">
                 Pastikan untuk mengunggah bukti pembayaran setelah transfer.
               </div>
