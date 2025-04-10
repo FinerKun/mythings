@@ -10,7 +10,7 @@ export function Footer() {
             <div className="px-3 md:px-0">
               <h3 className="font-bold text-[#892217]">About</h3>
               <p className="py-4">
-                Percetakan Beringin Hadir sebagai sarana percetakan modul, catpos, dan sebagainya.
+                Mythings hadir sebagai solusi untuk segala masalah yang ada di FKG.
               </p>
             </div>
           </div>
@@ -19,7 +19,7 @@ export function Footer() {
               <h3 className="text-left font-bold text-[#892217]">Social</h3>
               <div className="mt-2 flex w-full items-center justify-between gap-4 py-0">
                 <a
-                  href="https://www.instagram.com/percetakanberingin"
+                  href="https://www.instagram.com/mythings.med/"
                   target="_blank"
                   className="text-[#892217]"
                 >
@@ -31,7 +31,7 @@ export function Footer() {
                   </svg>
                 </a>
                 <a
-                  href="https://chat.whatsapp.com/F5GrArO59pnJek6adECWTk"
+                  href="https://chat.whatsapp.com/FZNViItwGTeCQBLuMwvLWq"
                   target="_blank"
                   className="text-[#892217]"
                 >
