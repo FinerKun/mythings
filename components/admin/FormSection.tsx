@@ -580,7 +580,7 @@ export function FormSection({ id, value }: FormSectionProps) {
   );
 }
 
-function checkImageSize(file: File, maxSizeMB: number = 1) {
+function checkImageSize(file: File, maxSizeMB: number = 10) {
   const fileSize = file.size;
   const fileSizeMb = fileSize / 1024 ** 2;
 
