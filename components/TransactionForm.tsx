@@ -396,7 +396,7 @@ if (!product) {
   );
 }
 
-function checkImageSize(file: File, maxSizeMB: number = 10) {
+function checkImageSize(file: File, maxSizeMB: number = 4.5) {
   const fileSize = file.size;
   const fileSizeMb = fileSize / 1024 ** 2;
 
